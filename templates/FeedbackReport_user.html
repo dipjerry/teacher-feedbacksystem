@@ -1,0 +1,565 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h1>{{Teacher_Name}} Report</h1>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <table class="table table-bordered" align="center">
+        <thead>
+            <tr>
+                <th scope="col">sl</th>
+                <th scope="col">Field</th>
+                <th>Remark</th>
+                <th scope="col">Feedback Report</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Regular and Punctual</td>
+                <td>{{Regular_Punctual_M_k}}, {{Regular_Punctual_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  width:60%">
+                        <canvas id="myRnP"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Knowledge</td>
+                <td>{{Knowledge_M_k}},{{Knowledge_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myK"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Clarity and communication</td>
+                <td>{{Clarity_communication_M_k}}, {{Clarity_communication_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myCnC"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>Help Student</td>
+                <td>{{helpStudent_M_k}}, {{helpStudent_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myHs"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>Presentation</td>
+                <td>{{presentation_M_k}},{{ presentation_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myP"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">6</th>
+                <td>Motivates Interest</td>
+                <td>{{motivatesInterest_M_k}}, {{motivatesInterest_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myMi"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">7</th>
+                <td>co-opeartive</td>
+                <td>{{co_opeartive_M_k}} , {{co_opeartive_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myCo"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">8</th>
+                <td>New Outlook</td>
+                <td>{{newOutlook_M_k}}, {{newOutlook_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myNo"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">9</th>
+                <td>Checking</td>
+                <td>{{checking_M_k}}, {{checking_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myC"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">10</th>
+                <td>Seminar</td>
+                <td>{{Seminar_M_k}}, {{interaction_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myS"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">11</th>
+                <td>Interaction</td>
+                <td>{{interaction_M_k}}, {{interaction_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myI"></canvas>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">12</th>
+                <td>Effectiveness</td>
+                <td>{{effectiveness_M_k}}, {{effectiveness_M_d}}</td>
+                <td align="center">
+                    <div class="chart-container" style="position: relative;  max-width:60%;">
+                        <canvas id="myE"></canvas>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {{x}}, {{y}} {% block JavaScript %}
+    <script>
+        var data_r = JSON.parse('{{Regular_Punctual_G | safe}}');
+        var labels_r = JSON.parse('{{Regular_Punctual_L | safe}}');
+        var data_k = JSON.parse('{{Knowledge_G | safe}}');
+        var labels_k = JSON.parse('{{Knowledge_L | safe}}');
+        var data_CnC = JSON.parse('{{Clarity_communication_G | safe}}');
+        var labels_CnC = JSON.parse('{{Clarity_communication_L | safe}}');
+        var data_Hs = JSON.parse('{{helpStudent_G | safe}}');
+        var labels_Hs = JSON.parse('{{helpStudent_L | safe}}');
+        var data_p = JSON.parse('{{presentation_G | safe}}');
+        var labels_p = JSON.parse('{{presentation_L | safe}}');
+        var data_Co = JSON.parse('{{co_opeartive_G | safe}}');
+        var labels_Co = JSON.parse('{{co_opeartive_L | safe}}');
+        var data_No = JSON.parse('{{newOutlook_G | safe}}');
+        var labels_No = JSON.parse('{{newOutlook_L | safe}}');
+        var data_c = JSON.parse('{{checking_G | safe}}');
+        var labels_c = JSON.parse('{{checking_L | safe}}');
+        var data_s = JSON.parse('{{Seminar_G | safe}}');
+        var labels_s = JSON.parse('{{Seminar_L | safe}}');
+        var data_i = JSON.parse('{{interaction_G | safe}}');
+        var labels_i = JSON.parse('{{interaction_L | safe}}');
+        var data_e = JSON.parse('{{effectiveness_G | safe}}');
+        var labels_e = JSON.parse('{{effectiveness_L | safe}}');
+        var data_Mi = JSON.parse('{{motivatesInterest_G | safe}}');
+        var labels_Mi = JSON.parse('{{motivatesInterest_L | safe}}');
+
+        var setting = {
+            legend: {
+                display: false,
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Response Choices ratio'
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+
+                        mirror: true,
+                        fontColor: 'fff',
+
+
+                    }
+                }],
+            } //scales
+        }
+
+        $(document).ready(function() {
+            //graph for regular and punctuality start
+            var ctx1 = document.getElementById('myRnP').getContext('2d');
+
+            var myChart = new Chart(ctx1, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_r,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_r,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for regular and punctuality ends
+            //graph for Knowledge start
+            var ctx2 = document.getElementById('myK').getContext('2d');
+            var myChart = new Chart(ctx2, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_k,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_k,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for knowledge ends
+            //graph for clarity and communication start
+            var ctx3 = document.getElementById('myCnC').getContext('2d');
+            var myChart = new Chart(ctx3, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_CnC,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_CnC,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for clarity and communication ends
+            //graph for helping student start
+            var ctx4 = document.getElementById('myHs').getContext('2d');
+            var myChart = new Chart(ctx4, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_Hs,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_Hs,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for helping student ends
+            //graph for presentation starts 
+            var ctx5 = document.getElementById('myP').getContext('2d');
+            var myChart = new Chart(ctx5, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_p,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_p,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for presentation ends
+            //graph for Motivate interest start
+            var ctx6 = document.getElementById('myMi').getContext('2d');
+            var myChart = new Chart(ctx6, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_Mi,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_Mi,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for Motivate interest ends
+            var ctx7 = document.getElementById('myCo').getContext('2d');
+            var myChart = new Chart(ctx7, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_Co,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_Co,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for co Operative ends
+            //graph for New outlook start
+            var ctx8 = document.getElementById('myNo').getContext('2d');
+            var myChart = new Chart(ctx8, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_No,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_No,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for New outlook ends
+            //graph for checking starts
+            var ctx9 = document.getElementById('myC').getContext('2d');
+            var myChart = new Chart(ctx9, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_c,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_c,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for checking ends
+            //graph for seminar start
+            var ctx10 = document.getElementById('myS').getContext('2d');
+            var myChart = new Chart(ctx10, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_s,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_s,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+
+            });
+            //graph for seminar ends
+            //graph for Interection starts
+            var ctx11 = document.getElementById('myI').getContext('2d');
+            var myChart = new Chart(ctx11, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_i,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_i,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for Interection ends
+            //graph for Interection starts
+            var ctx12 = document.getElementById('myE').getContext('2d');
+            var myChart = new Chart(ctx12, {
+                type: 'horizontalBar',
+                data: {
+                    labels: labels_e,
+                    datasets: [{
+                        label: '% of Feedback',
+                        data: data_e,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: ['rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: setting
+            }); //graph for Interection ends
+
+
+        });
+    </script>
+    {% endblock %}
+
+
+</body>
+
+</html>

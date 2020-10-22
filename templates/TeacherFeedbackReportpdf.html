@@ -1,0 +1,132 @@
+c
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher data</title>
+
+    <style>
+        .table {
+            table-layout: auto;
+        }
+        
+        .sl {
+            width: 5%;
+        }
+        
+        .field {
+            width: 30%;
+        }
+        
+        .remark {
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    {{status}}
+    <p style="font-size:large">
+        {{Teacher_Name}},<br> Your report for the month of ...........{{x}}
+    </p>
+
+    <table class="table table-bordered" align="center" border="1" style="padding: 2px; text-align:center">
+        <thead>
+            <tr style="font-weight: bold; font-size:20px">
+                <th class="sl">sl.</th>
+                <th class="field">Field</th>
+                <th class="remark">Remark</th>
+                <th>Feedback Report</th>
+            </tr>
+        </thead>
+        <tbody style="font-size:large">
+            <tr>
+                <th class="sl">1</th>
+                <td class="field">Whether the teacher is Regular and Punctual</td>
+                <td class="remark">{{Regular_Punctual_M_k}}, {{Regular_Punctual_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic1|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">2</th>
+                <td class="field">Knowledge of the teacher in the Subject</td>
+                <td class="remark">{{Knowledge_M_k}},{{Knowledge_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic2|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">3</th>
+                <td class="field">Clarity and communication skill of Teacher's explanations</td>
+                <td class="remark">{{Clarity_communication_M_k}}, {{Clarity_communication_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic3|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">4</th>
+                <td class="field">Teacher's willingness to help the student</td>
+                <td class="remark">{{helpStudent_M_k}}, {{helpStudent_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic4|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">5</th>
+                <td class="field">Style of presentation of the subject</td>
+                <td class="remark">{{presentation_M_k}},{{ presentation_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic5|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">6</th>
+                <td class="field">Whether the teacher motivates your interest in the subjectt</td>
+                <td class="remark">{{motivatesInterest_M_k}}, {{motivatesInterest_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic6|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">7</th>
+                <td class="field">Whether the teacher is co-opeartive</td>
+                <td class="remark">{{co_opeartive_M_k}} , {{co_opeartive_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic7|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">8</th>
+                <td class="field">Whether the teacher is capable of giving you a new outlook in life</td>
+                <td class="remark">{{newOutlook_M_k}}, {{newOutlook_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic8|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">9</th>
+                <td class="field">Regular checking of laboratory log book/Journals/ note books etc.</td>
+                <td class="remark">{{checking_M_k}}, {{checking_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic9|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">10</th>
+                <td class="field">Take interests in conduct of Laboratory internal Viva, Group discussions/ Seminar etc.</td>
+                <td class="remark">{{Seminar_M_k}}, {{interaction_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic10|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">11</th>
+                <td class="field">Teacher's interaction with the students</td>
+                <td class="remark">{{interaction_M_k}}, {{interaction_M_d}}&nbsp;%</td>
+                <td><img src="data:image/png;base64,{{ graphic11|safe }}"></td>
+            </tr>
+            <tr>
+                <th class="sl">12</th>
+                <td class="field">Overall teaching effectiveness </td>
+                <td class="remark">{{effectiveness_M_k}}, {{effectiveness_M_d}}&nbsp;% </td>
+                <td><img src="data:image/png;base64,{{ graphic12|safe }}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h2> {{Remark}} </h2>
+
+</body>
+
+</html>
+
+<!-- 
+1. Whether the Teacher communicated during Lockdown ,score 1
+2. The material published on the Institute's website during lockdown, score 1
+3. Understanding quality of online class, score- 1
+4. Laboratory experiment theoretical model/ understanding during lockdown (if applicable), score-1
+5. Overall Teaching learning in this period , score 1
+
+
+ -->

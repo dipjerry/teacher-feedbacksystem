@@ -1,0 +1,877 @@
+{% extends "temp.html" %} {% block style %}
+<style>
+    .chart-container {
+        position: relative;
+        max-width: 70%
+    }
+    
+    .table {
+        width: 95%;
+        margin-top: 30px;
+    }
+    
+    td:nth-child(2) {
+        width: 30%;
+    }
+    
+    td:nth-child(3) {
+        width: 20%;
+    }
+</style>
+{% endblock %} {% block content %} {% for message in messages %}
+
+<div class="alert alert-success">
+    <a class="close" href="#" data-dismiss="alert">×</a> {{ message }}
+
+</div>
+{% endfor %}
+<nav class="navbar sticky-top navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand abs" href="#">{{Teacher_Name}} Report</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="collapsingNavbar">
+        <ul class="navbar-nav">
+
+
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../../home" onclick="return confirm('Are you sure?');">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../../logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- {{data1 | safe}}<br><br> {{data1_desc | safe}} -->
+
+<!-- 
+    <h2>Data for reference</h2>
+    {{data1 | safe}}<br><br> {{data1_desc | safe}}
+    <h2>Analysed data</h2>
+    <table border="1" width="600">
+        <tr>
+            <td>Regular_Punctual</td>
+            <td>Knowledge</td>
+            <td>Clarity_communication</td>
+            <td>helpStudent</td>
+            <td>presentation</td>
+            <td>motivatesInterest</td>
+            <td>co_opeartive</td>
+            <td>newOutlook</td>
+            <td>checking</td>
+            <td>Seminar</td>
+            <td>interaction</td>
+            <td>effectiveness</td>
+        </tr>
+        <tr>
+            <td>{{Regular_Punctual_data | safe}}</td>
+            <td>{{Knowledge_data | safe}}</td>
+            <td>{{Clarity_communication_data | safe}}</td>
+            <td>{{helpStudent_data | safe}}</td>
+            <td>{{presentation_data | safe}}</td>
+            <td>{{motivatesInterest_data | safe}}</td>
+            <td>{{co_opeartive_data | safe}}</td>
+            <td>{{motivatesInterest_data | safe}}</td>
+            <td>{{checking_data | safe}}</td>
+            <td>{{seminar_data | safe}}</td>
+            <td>{{interaction_data | safe}}</td>
+            <td>{{effectiveness_data_m | safe}}</td>
+        </tr>
+        UNIQUE : - x = {{x}}, {{sem2}}, {{ma}} <br>{{teacher_Fb_value | safe}}<br> {{teacher_Fb | safe}},
+    </table>
+    <br><br> {{Regular_Punctual_unique}} -->
+<!-- <center class="row">
+        <h1>Visualization <b>of</b> Feedbacks </h1>
+    </center> -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<table class="table table-bordered table-sm" align="center">
+    <thead>
+        <tr>
+            <th align="center" scope="col">sl</th>
+            <th align="center" scope="col">Field</th>
+            <th talign="center">Remark</th>
+            <th align="center" scope="col">Feedback Report</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td align="center" class="field"> Whether the teacher is Regular and Punctual</td>
+            <td align="center">{{Regular_Punctual_M_k}}, {{Regular_Punctual_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myRnP"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td align="center">Knowledge of the teacher in the Subject</td>
+            <td align="center">{{Knowledge_M_k}},{{Knowledge_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myK"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td align="center">Clarity and communication skill of Teacher's explanations </td>
+            <td align="center">{{Clarity_communication_M_k}}, {{Clarity_communication_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myCnC"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">4</th>
+            <td align="center">Teacher's willingness to help the student</td>
+            <td align="center">{{helpStudent_M_k}}, {{helpStudent_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myHs"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">5</th>
+            <td align="center"> Style of presentation of the subject</td>
+            <td align="center">{{presentation_M_k}},{{ presentation_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myP"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">6</th>
+            <td align="center">Whether the teacher motivates your interest in the subject</td>
+            <td align="center">{{motivatesInterest_M_k}}, {{motivatesInterest_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myMi"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">7</th>
+            <td align="center">Whether the teacher is co-opeartive</td>
+            <td align="center">{{co_opeartive_M_k}} , {{co_opeartive_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myCo"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">8</th>
+            <td align="center">Whether the teacher is capable of giving you a new outlook in life</td>
+            <td align="center">{{newOutlook_M_k}}, {{newOutlook_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myNo"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">9</th>
+            <td align="center">Regular checking of laboratory log book/Journals/ note books etc.</td>
+            <td align="center">{{checking_M_k}}, {{checking_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myC"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">10</th>
+            <td align="center">Take interests in conduct of Laboratory internal Viva, Group discussions/ Seminar etc.</td>
+            <td align="center">{{Seminar_M_k}}, {{interaction_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myS"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">11</th>
+            <td align="center">Whether the Teacher communicated during Lockdown</td>
+            <td align="center">{{Communication_LD_M_k}}, {{Communication_LD_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myCld"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">12</th>
+            <td align="center">The material published on the Institute's website during lockdown</td>
+            <td align="center">{{Study_Material_LD_M_k}}, {{Study_Material_LD_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="mySmld"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">13</th>
+            <td align="center"> Understanding quality of online class</td>
+            <td align="center">{{Online_Class_LD_M_k}}, {{Online_Class_LD_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myOcld"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">14</th>
+            <td align="center">Laboratory experiment theoretical model/ understanding during lockdown (if applicable) </td>
+            <td align="center">{{Laboratory_LD_M_k}}, {{Laboratory_LD_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myLld"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">15</th>
+            <td align="center">Overall Teaching learning in this period</td>
+            <td align="center">{{Teaching_LD_M_k}}, {{Teaching_LD_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="mytld"></canvas>
+                </div>
+            </td>
+        </tr>
+
+
+        <tr>
+            <th scope="row">16</th>
+            <td align="center">Teacher's interaction with the students </td>
+            <td align="center">{{interaction_M_k}}, {{interaction_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myI"></canvas>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">17</th>
+            <td align="center">Overall teaching effectiveness</td>
+            <td align="center">{{effectiveness_M_k}}, {{effectiveness_M_d}}</td>
+            <td align="center">
+                <div class="chart-container">
+                    <canvas id="myE"></canvas>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- {{x}}, {{y}}  -->
+{% block JavaScript %}
+<script>
+    var data_r = JSON.parse('{{Regular_Punctual_G | safe}}');
+    var labels_r = JSON.parse('{{Regular_Punctual_L | safe}}');
+    var data_k = JSON.parse('{{Knowledge_G | safe}}');
+    var labels_k = JSON.parse('{{Knowledge_L | safe}}');
+    var data_CnC = JSON.parse('{{Clarity_communication_G | safe}}');
+    var labels_CnC = JSON.parse('{{Clarity_communication_L | safe}}');
+    var data_Hs = JSON.parse('{{helpStudent_G | safe}}');
+    var labels_Hs = JSON.parse('{{helpStudent_L | safe}}');
+    var data_p = JSON.parse('{{presentation_G | safe}}');
+    var labels_p = JSON.parse('{{presentation_L | safe}}');
+    var data_Co = JSON.parse('{{co_opeartive_G | safe}}');
+    var labels_Co = JSON.parse('{{co_opeartive_L | safe}}');
+    var data_No = JSON.parse('{{newOutlook_G | safe}}');
+    var labels_No = JSON.parse('{{newOutlook_L | safe}}');
+    var data_c = JSON.parse('{{checking_G | safe}}');
+    var labels_c = JSON.parse('{{checking_L | safe}}');
+    var data_s = JSON.parse('{{Seminar_G | safe}}');
+    var labels_s = JSON.parse('{{Seminar_L | safe}}');
+    var data_i = JSON.parse('{{interaction_G | safe}}');
+    var labels_i = JSON.parse('{{interaction_L | safe}}');
+    var data_e = JSON.parse('{{effectiveness_G | safe}}');
+    var labels_e = JSON.parse('{{effectiveness_L | safe}}');
+    var data_Mi = JSON.parse('{{motivatesInterest_G | safe}}');
+    var labels_Mi = JSON.parse('{{motivatesInterest_L | safe}}');
+    var data_C_Ld = JSON.parse('{{Communication_LD_G | safe}}');
+    var labels_C_Ld = JSON.parse('{{Communication_LD_L | safe}}');
+    var data_Sm_Ld = JSON.parse('{{Study_Material_LD_G | safe}}');
+    var labels_Sm_Ld = JSON.parse('{{Study_Material_LD_L | safe}}');
+    var data_Oc_Ld = JSON.parse('{{Online_Class_LD_G | safe}}');
+    var labels_Oc_Ld = JSON.parse('{{Online_Class_LD_L | safe}}');
+    var data_l_Ld = JSON.parse('{{Laboratory_LD_G | safe}}');
+    var labels_l_Ld = JSON.parse('{{Laboratory_LD_L | safe}}');
+    var data_T_Ld = JSON.parse('{{Teaching_LD_G | safe}}');
+    var labels_T_Ld = JSON.parse('{{Teaching_LD_L | safe}}');
+
+
+    var setting = {
+        legend: {
+            display: false,
+        },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Response Choices ratio'
+                }
+            }],
+            yAxes: [{
+                ticks: {
+
+                    mirror: true,
+                    fontColor: 'fff',
+
+
+                }
+            }],
+        } //scales
+    }
+
+    $(document).ready(function() {
+        //graph for regular and punctuality start
+        var ctx1 = document.getElementById('myRnP').getContext('2d');
+
+        var myChart = new Chart(ctx1, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_r,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_r,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for regular and punctuality ends
+        //graph for Knowledge start
+        var ctx2 = document.getElementById('myK').getContext('2d');
+        var myChart = new Chart(ctx2, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_k,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_k,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for knowledge ends
+        //graph for clarity and communication start
+        var ctx3 = document.getElementById('myCnC').getContext('2d');
+        var myChart = new Chart(ctx3, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_CnC,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_CnC,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for clarity and communication ends
+        //graph for helping student start
+        var ctx4 = document.getElementById('myHs').getContext('2d');
+        var myChart = new Chart(ctx4, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_Hs,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_Hs,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for helping student ends
+        //graph for presentation starts 
+        var ctx5 = document.getElementById('myP').getContext('2d');
+        var myChart = new Chart(ctx5, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_p,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_p,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for presentation ends
+        //graph for Motivate interest start
+        var ctx6 = document.getElementById('myMi').getContext('2d');
+        var myChart = new Chart(ctx6, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_Mi,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_Mi,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for Motivate interest ends
+        var ctx7 = document.getElementById('myCo').getContext('2d');
+        var myChart = new Chart(ctx7, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_Co,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_Co,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for co Operative ends
+        //graph for New outlook start
+        var ctx8 = document.getElementById('myNo').getContext('2d');
+        var myChart = new Chart(ctx8, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_No,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_No,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for New outlook ends
+        //graph for checking starts
+        var ctx9 = document.getElementById('myC').getContext('2d');
+        var myChart = new Chart(ctx9, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_c,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_c,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for checking ends
+        //graph for seminar start
+        var ctx10 = document.getElementById('myS').getContext('2d');
+        var myChart = new Chart(ctx10, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_s,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_s,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+
+        });
+        //graph for seminar ends
+        //graph for Interection starts
+        var ctx11 = document.getElementById('myI').getContext('2d');
+        var myChart = new Chart(ctx11, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_i,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_i,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for Interection ends
+        //graph for Interection starts
+        var ctx12 = document.getElementById('myE').getContext('2d');
+        var myChart = new Chart(ctx12, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_e,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_e,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for Interection ends
+        //graph for communication in LD starts
+        var ctx13 = document.getElementById('myCld').getContext('2d');
+        var myChart = new Chart(ctx13, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_C_Ld,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_C_Ld,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for communication in lockdown ends
+        //graph for study Material in LD starts
+        var ctx14 = document.getElementById('mySmld').getContext('2d');
+        var myChart = new Chart(ctx14, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_Sm_Ld,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_Sm_Ld,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for study Material in lockdown ends
+        //graph for online class in LD starts
+        var ctx15 = document.getElementById('myOcld').getContext('2d');
+        var myChart = new Chart(ctx15, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_C_Ld,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_C_Ld,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for online class in lockdown ends
+        //graph for Labratory in LD starts
+        var ctx16 = document.getElementById('myLld').getContext('2d');
+        var myChart = new Chart(ctx16, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_l_Ld,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_l_Ld,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for labratory in lockdown ends
+        //graph for teaching in LD starts
+        var ctx17 = document.getElementById('mytld').getContext('2d');
+        var myChart = new Chart(ctx17, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels_T_Ld,
+                datasets: [{
+                    label: '% of Feedback',
+                    data: data_T_Ld,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: setting
+        }); //graph for labratory in lockdown ends
+
+
+    });
+</script>
+{% endblock %}
+
+
+<center>
+
+
+    <form action="../../toPDF/render_to_pdf" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="tName">Name</label>:
+            <input type='text' name="tName" value="{{Teacher_Name}}" readonly> <br>
+        </div>
+        <div class="form-group">
+            <label for="remark">Comment</label>:
+            <textarea rows="4" cols="50" name="remark"> Remark </textarea> <br>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+
+    </form>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center  pagination-lg">
+            <li class="page-item">
+                {% if page.has_previous%}
+                <a class="page-link" href="#" tabindex="-1">Previous</a> {% endif %}
+            </li>
+
+            <li class="page-item">
+                {% if page.has_next%}
+                <a class="page-link" href="#">Next</a> {% endif %}
+            </li>
+        </ul>
+    </nav>
+</center>
+
+{% endblock %}
