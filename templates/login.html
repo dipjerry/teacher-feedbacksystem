@@ -1,0 +1,139 @@
+{% extends "temp.html" %} {% block style %}
+
+</style>
+{% endblock %} {% block content %}
+
+
+
+
+<style>
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+    /* Style the buttons inside the tab */
+    
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+    /* Change background color of buttons on hover */
+    
+    .tab button:hover {
+        background-color: #ddd;
+    }
+    /* Create an active/current tablink class */
+    
+    .tab button.active {
+        background-color: #ccc;
+    }
+    /* Style the tab content */
+    
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+</head>
+
+<body>
+
+
+    {% for message in messages %}
+
+    <div class="alert alert-success">
+        <a class="close" href="#" data-dismiss="alert">×</a> {{ message }}
+
+    </div>
+    {% endfor %}
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="nav-item">
+            <a class="nav-link" href="#admin" data-toggle="tab">Admin</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#user" data-toggle="tab">Users</a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="admin">
+            <h2>Admin</h2>
+            <form action="login" method="POST" class="p-5 bg-white" id="form1">
+                {% csrf_token %}
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label class="text-black" for="username">User Name</label>
+                        <input type="text" name="username" id="username" class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label class="text-black" for="subject">Password</label>
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-12">
+                        <p>No account yet? <a href="register">Register</a></p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Sign In" class="btn btn-primary py-2 px-4 text-white" readonly>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane" id="user">
+            <h2>User</h2>
+            <form action="login_user" method="POST" class="p-5 bg-white" id="form2">
+                {% csrf_token %}
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label class="text-black" for="UserName">User Name</label>
+                        <input type="text" name="UserName" id="UserName" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label class="text-black" for="Password">Password</label>
+                        <input type="password" name="Password" id="Password" class="form-control" required>
+                    </div>
+                </div>
+
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Sign In" class="btn btn-primary py-2 px-4 text-white" readonly>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script>
+        $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
+        });
+
+        var activeTab = localStorage.getItem('activeTab');
+
+
+        console.log(activeTab);
+
+        if (activeTab) {
+            $('a[href="' + activeTab + '"]').tab('show');
+        }
+    </script>
+    {% endblock %}

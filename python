@@ -1,0 +1,3 @@
+
+    virtualenv "manage.py" does not exist.
+    Create it with "mkvirtualenv "

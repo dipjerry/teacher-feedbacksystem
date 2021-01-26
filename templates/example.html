@@ -1,0 +1,146 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h1>Teacher Name Report</h1>
+    Lorem eirmod rebum no vero dolore vero sed gubergren, consetetur amet aliquyam sit sit labore et rebum amet, ut rebum tempor et magna. Sea lorem voluptua nonumy dolor invidunt sadipscing. Consetetur et ea no consetetur nonumy dolores magna. Amet et diam
+    sed invidunt clita et. Est sanctus sea gubergren elitr tempor et consetetur sed aliquyam. Et et tempor duo vero. Sanctus sadipscing takimata magna diam at, sit amet labore magna sed ut takimata, rebum sed magna labore ut labore, et labore est labore
+    sea at sed ea consetetur no, magna takimata sadipscing clita tempor amet rebum ipsum duo tempor, vero amet dolore aliquyam invidunt ipsum et accusam sadipscing lorem, eirmod eos ea rebum eirmod clita tempor eirmod. Vero clita et.
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">sl</th>
+                    <th scope="col">Field</th>
+                    <th>Remark</th>
+                    <th scope="col">Feedback Report</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Punctuality</td>
+                    <td>Poor</td>
+                    <td>
+                        <div class="chart-container" style="position: relative;  width:30%">
+                            <canvas id="myChart1"></canvas>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>behaviour</td>
+                    <td>Poor</td>
+                    <td>
+                        <div class="chart-container" style="position: relative;  width:30%">
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function() {
+                var ctx = document.getElementById("myChart1").getContext('2d');
+                var data = {
+                    datasets: [{
+                        data: [10, 20, 30],
+                        backgroundColor: [
+                            '#3c8dbc',
+                            '#f56954',
+                            '#f39c12',
+                        ],
+                    }],
+                    labels: [
+                        'Excellent',
+                        'Good',
+                        'Poor'
+                    ]
+                };
+                var horizontalbar = new Chart(ctx, {
+                    type: 'horizontalBar',
+                    data: data,
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                        maintainAspectRatio: false,
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12
+                            }
+                        }
+                    }
+                });
+
+                var ctx_2 = document.getElementById("myChart2").getContext('2d');
+                var data_2 = {
+                    datasets: [{
+                        data: [15, 20, 30],
+                        backgroundColor: [
+                            '#3c8dbc',
+                            '#f56954',
+                            '#f39c12',
+                        ],
+                    }],
+                    labels: [
+                        'Excellent',
+                        'Good',
+                        'Poor'
+                    ]
+                };
+                var myDoughnutChart_2 = new Chart(ctx_2, {
+                    type: 'horizontalBar',
+                    data: data_2,
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                        maintainAspectRatio: false,
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+    <center>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center  pagination-lg">
+                <li class="page-item">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a type="button" class="page-link active" href="#">Send mail</a></li>
+
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </center>
+</body>
+
+</html>

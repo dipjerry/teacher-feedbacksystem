@@ -1,0 +1,123 @@
+{% extends "temp.html" %} {% block style %}
+<style>
+    body {
+        background-color: #5cdb95;
+    }
+    
+    .inputfile {
+        width: 0.5px;
+        height: 0.5px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+    
+    .inputfile+label {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        background-color: #d3394c;
+        display: inline-block;
+        padding: 20px
+    }
+    
+    .inputfile:focus+label,
+    .inputfile+label:hover {
+        background-color: #722040;
+        ;
+    }
+    
+    .inputfile+label {
+        cursor: pointer;
+        /* "hand" cursor */
+    }
+    
+    .inputfile:focus+label {
+        outline: 1px dotted #000;
+        outline: -webkit-focus-ring-color auto 5px;
+    }
+    
+    .upload-btn-wrapper {
+        background-color: #8ee4af;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+    }
+</style>
+{% endblock %} {% block content %} {% for message in messages %}
+
+<div class="alert alert-success">
+    <a class="close" href="#" data-dismiss="alert">×</a> {{ message }}
+
+</div>
+{% endfor %}
+<nav class="navbar sticky-top navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand abs" href="#">{{title}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="collapsingNavbar">
+        <ul class="navbar-nav">
+
+
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../home" onclick="return confirm('Are you sure?');">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<h1></h1>
+<script>
+    (function(e, t, n) {
+        var r = e.querySelectorAll("html")[0];
+        r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2")
+    })(document, window, 0);
+</script>
+<div class="upload-btn-wrapper">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="file" name="myfile" id="file" class="inputfile form-control" data-multiple-caption="{count} files selected" multiple/>
+            <label for="file"> <span>Choose a file&hellip;</span></label>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <!-- <a role="button" class="btn btn-outline-secondary" href="generate_users ">generate</a> -->
+    </form>
+</div>
+<script>
+    'use strict';;
+    (function($, window, document, undefined) {
+        $('.inputfile').each(function() {
+            var $input = $(this),
+                $label = $input.next('label'),
+                labelVal = $label.html();
+            $input.on('change', function(e) {
+                var fileName = '';
+                if (this.files && this.files.length > 1)
+                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                else if (e.target.value)
+                    fileName = e.target.value.split('\\').pop();
+                if (fileName)
+                    $label.find('span').html(fileName);
+                else
+                    $label.html(labelVal);
+            });
+            // Firefox bug fix
+            $input
+                .on('focus', function() {
+                    $input.addClass('has-focus');
+                })
+                .on('blur', function() {
+                    $input.removeClass('has-focus');
+                });
+        });
+    })(jQuery, window, document);
+</script>
+{% endblock %}
