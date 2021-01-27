@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'teacher_Register',
     
     'displayData',
-    'chartjs',
     'rest_framework',
     'toPDF',
     'Homepage',
