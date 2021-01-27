@@ -19,6 +19,7 @@ mysql-connector==2.2.9
 mysql-connector-python==8.0.19
 mysqlclient==1.4.6
 numpy==1.18.1
+pandas==1.0.4
 pyPdf==1.13
 PyPDF2==1.26.0
 psycopg2==2.8.4
