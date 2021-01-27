@@ -20,6 +20,7 @@ mysqlclient==1.4.6
 numpy==1.18.1
 pyPdf==1.13
 PyPDF2==1.26.0
+psycopg2==2.8.4
 pyrsistent==0.15.4
 sympy==1.6.2
 tablib==2.0.0
