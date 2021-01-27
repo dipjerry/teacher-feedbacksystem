@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import django_heroku
+import dj_database_url
     
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -84,17 +85,20 @@ WSGI_APPLICATION = 'FinalProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd35fam1hushcrf',
-        'USER': 'pzpbpxhrjahmvd',
-        'PASSWORD': 'f4cadc50942f3c1893707d874470d75fde3482a85671885b9d30b283abaa02f3',
-        'HOST': 'ec2-52-72-190-41.compute-1.amazonaws.com'
-    }
-}
 # DATABASES = {
-#     dj_databse_url.config()
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd35fam1hushcrf',
+#         'USER': 'pzpbpxhrjahmvd',
+#         'PASSWORD': 'f4cadc50942f3c1893707d874470d75fde3482a85671885b9d30b283abaa02f3',
+#         'HOST': 'ec2-52-72-190-41.compute-1.amazonaws.com'
+#     }
+# }
+
+DATABASES['default'] = dj_database_url.config()
+
+# DATABASES = {
+#     dj_databse_url.config(conn_max_age=600, ssl_require=True)
 # }
 
 # Password validation
