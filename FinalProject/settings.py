@@ -45,9 +45,7 @@ INSTALLED_APPS = [
     'displayData',
     'rest_framework',
     'toPDF',
-    'Homepage',
-    
-    'pdf_generator'
+    'Homepage'
 
 ]
 
