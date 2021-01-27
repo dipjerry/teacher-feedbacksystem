@@ -86,18 +86,18 @@ WSGI_APPLICATION = 'FinalProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'test',
-#         'USER': 'postgres',
-#         'PASSWORD': 'root',
-#         'HOST': 'localhost'
-#     }
-# }
 DATABASES = {
-    dj_databse_url.config()
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd35fam1hushcrf',
+        'USER': 'pzpbpxhrjahmvd',
+        'PASSWORD': 'f4cadc50942f3c1893707d874470d75fde3482a85671885b9d30b283abaa02f3',
+        'HOST': 'ec2-52-72-190-41.compute-1.amazonaws.com'
+    }
 }
+# DATABASES = {
+#     dj_databse_url.config()
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
