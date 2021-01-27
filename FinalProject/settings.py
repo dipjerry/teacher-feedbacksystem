@@ -43,12 +43,10 @@ INSTALLED_APPS = [
     'import_export',
     'ExcelMail',
     'teacher_Register',
-    
     'displayData',
     'rest_framework',
     'toPDF',
     'Homepage'
-
 ]
 
 MIDDLEWARE = [
