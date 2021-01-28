@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'FinalProject.wsgi.application'
 #     }
 # }
 
-DATABASES['default'] = dj_database_url.config()
+DATABASES = {'default': dj_database_url.config()}
 
 # DATABASES = {
 #     dj_databse_url.config(conn_max_age=600, ssl_require=True)
