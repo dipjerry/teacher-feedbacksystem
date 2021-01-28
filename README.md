@@ -7,3 +7,7 @@ The feedback Analysis system is a project which web-based feedback collecting sy
 By using this technology we can give feedback in an online system as fast as compared to the existing paper feedback portal. 
 Overall this project of ours is being developed to help to know the overall performance of a teacher in the best way possible and also reduce the human effort 
 
+##Modules
+1. ###sign in and sign up
+![login](https://lh3.googleusercontent.com/5VSxLWk7aixF_rM1oM7C-eHEUkykgZ5dFGUOmOcgUXCPdaNOBR1af7drUVzWlWOlPFGl4acNJfJ8HgI219x6lF7vfrDHubo-RM7JbnK5X4FASvgfD_VbAPUCQHZpOPU6RG-jUe9xCw=w2400
+)
