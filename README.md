@@ -1,6 +1,6 @@
 # teacher-feedbacksystem  
 teacher feedback system  
-Check it out [Here](https://teacher-feedbacksystem.herokuapp.com){target="_blank"}
+Check it out [Here](https://teacher-feedbacksystem.herokuapp.com){:target="_blank"}
 
 The feedback Analysis system is a project which web-based feedback collecting system from an XLSX file created from google form and analyze them. It provides automatic generation of feedback that is given by the students. We have developed it to provide feedback quickly and easily to the college faculty, which delivers the feedback to the respective teacher.
 
@@ -22,4 +22,4 @@ Overall this project of ours is being developed to help to know the overall perf
 ![dashboard](https://lh3.googleusercontent.com/czUADcWEEJRfdy6Y8jvHsnaBY3pLSV4_A18XU3CJX0FmFNbHpVR_HCEhFNjeu5FjPk2Tfz39XaAHNg553N-SJHTStSoybJpvT5r3K4iHI90Dasz9Uj-UabVFf3P9scUtGCAUEpBI7A=w2400)
 
 ![dashboard](https://lh3.googleusercontent.com/fFwPCcYoWxvMjW5o1q8DzDniWdJBtRtwlOyq7zYlPXKclVjmFF_BO88c0J6qc0nvsZdP0HgBd0AjNglTvgD1pWWIQCJD-VTcVFw2uWH0lcNbpxB-leYyqcct5A923tgLQO9fo2_obA=w2400)
-For more please check [coderrat.xyz](https://www.coderrat.xyz){target="_blank"}
+For more please check [coderrat.xyz](https://www.coderrat.xyz){:target="_blank"}
